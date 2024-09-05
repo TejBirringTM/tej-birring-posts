@@ -5,7 +5,7 @@ export default function TheHeader() {
     return (
         <header className="flex flex-row items-center justify-center sm:justify-between">
             <div className="py-6 px-3">
-                <Title className="text-ecru fill-ecru">
+                <Title className="text-ecru fill-ecru text-center sm:text-left">
                     <Pen className="hidden sm:inline-block size-14 mr-4 -mt-4" />
                     Tej Birring
                 </Title>
