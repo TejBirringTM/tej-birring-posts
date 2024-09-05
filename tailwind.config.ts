@@ -8,6 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "ecru": "#e6c27c",
+        "papyrus": "#e5d2bc",
+        "paper": "#e1e5eb",
+        "bright-white": "#f6f6f6",
+        "iron": "#4b5560",
+        "leather": "#5c514f",
+        "onyx-black": "#404041",
+        "jet-black": "#303030"
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
