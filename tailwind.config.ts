@@ -16,7 +16,12 @@ const config: Config = {
         "iron": "#4b5560",
         "leather": "#5c514f",
         "onyx-black": "#404041",
-        "jet-black": "#303030"
+        "jet-black": "#303030",
+
+        "leather-trim": "#675C5A",
+        "papyrus-trim": "#CDBCA8",
+        "iron-trim": "#6B7A89",
+        "paper-trim": "#f6f6f6"
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

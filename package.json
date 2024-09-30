@@ -9,13 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
+    "jotai": "^2.9.3",
+    "jotai-effect": "^1.0.3",
+    "jotai-location": "^0.5.5",
+    "lodash.debounce": "^4.0.8",
+    "lodash.merge": "^4.6.2",
     "next": "14.2.7",
+    "qs": "^6.13.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
+    "@types/lodash.debounce": "^4.0.9",
+    "@types/lodash.merge": "^4.6.9",
     "@types/node": "^20",
+    "@types/qs": "^6.9.15",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",

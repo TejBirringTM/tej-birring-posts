@@ -5,9 +5,9 @@ export default function TheFooter() {
     const year = new Date().getFullYear();
 
     return (
-        <footer className="bg-jet-black p-4">
+        <footer className="bg-jet-black px-4 pt-4 pb-2">
             <Title className="text-[1.7rem] mb-2 text-paper fill-paper">
-                <Pen className="inline-block size-8 mr-2 -mt-2" />
+                <Pen className="inline-block size-8 mr-2.5 -mt-2" />
                 Tej Birring
             </Title>
             <Paragraph className="text-xs leading-none text-ecru max-w-72 mb-4">

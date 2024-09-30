@@ -7,12 +7,17 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: geometricPrecision;
     shape-rendering: geometricPrecision;
+    user-select: none;
+    user-drag: none;
 }
 
 html {
   font-size: 16px;
   @media screen(sm) {
-    font-size: 18px;
+    font-size: 20px;
+  }
+  @media screen(lg) {
+    font-size: 24px;
   }
 }
 
@@ -26,7 +31,7 @@ p, h1, h2, h3, h4, h5, h6, p, span {
   line-height: 1;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, .heading {
   font-family: "Rubik";
 }
 
@@ -58,3 +63,35 @@ h4 {
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .card {
+    @apply shadow-lg m-4 rounded-[0.3rem];
+  }
+  .card.trim {
+    border-bottom: 0.4rem solid;
+    @media screen(sm) {
+      border-bottom: 0.5rem solid;
+    }
+    @media screen(lg) {
+      border-bottom: 0.6rem solid;
+    }
+  }
+  .card.leather {
+    background-color: theme(colors.leather);
+    border-color: theme(colors.leather-trim);
+  }
+  .card.papyrus {
+    background-color: theme(colors.papyrus);
+    border-color: theme(colors.papyrus-trim);
+  }
+  .card.iron {
+    background-color: theme(colors.iron);
+    border-color: theme(colors.iron-trim);
+  }
+  .card.paper {
+    background-color: theme(colors.paper);
+    border-color: theme(colors.paper-trim);
+  }
+}
+  
