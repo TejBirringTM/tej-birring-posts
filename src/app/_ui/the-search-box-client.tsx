@@ -6,7 +6,6 @@ import MagnifyingGlass from "./_assets/_svgs/magnifying-glass.svg"
 import { ChangeEvent, useEffect, useRef } from "react";
 import {historyStateToQuery, queryToHistoryState, searchEntryAtom, useAtom} from "../_state/blog-post-query";
 import debounce from "lodash.debounce";
-import { useSearchParams } from "next/navigation";
 import RefreshIcon from "@/app/_ui/_assets/_svgs/refresh-arrow.svg";
 import clsx from "clsx";
 
@@ -39,7 +38,7 @@ export default function TheSearchBox() {
     }
 
     return (
-        <Card fabric="papyrus" onClick={onCardClick} trim="true" style={{cursor: 'text'}} className="relative">
+        <Card fabric="papyrus" onClick={onCardClick} trim="true" style={{cursor: 'text'}} className="relative mx-4 mb-4">
             <HeadingL3 className="text-2xl tracking-tight pl-2.5 py-1 text-leather/70 w-fit">
                 Search
                 <MagnifyingGlass className="size-8 ml-1.5 inline-block fill-leather/70" />

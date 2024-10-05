@@ -1,22 +1,20 @@
-import {HeadingL1, HeadingL2, HeadingL3, Paragraph} from "@/app/_ui/_content/typography"
 import TheSearchBox from "./_ui/the-search-box-client";
 import TheCategoriesSelector from "./_ui/the-categories-selector-client";
 import TheTagsSelector from "./_ui/the-tags-selector-client";
 import TheBlogPosts from "./_ui/the-blog-posts-pagination";
 
-export default async function Home() {
+export default function Home() {
   
   return (
       <main className="min-h-screen">
         <TheSearchBox />
-        <TheCategoriesSelector />
-        <TheTagsSelector />
+
+        <div className="flex flex-col sm:flex-row sm:justify-stretch gap-4 mb-4 px-4">
+          <TheCategoriesSelector />
+          <TheTagsSelector />
+        </div>
         
         <TheBlogPosts />
-
-        <HeadingL2>asd</HeadingL2>
-        <HeadingL3>asd</HeadingL3>
-        <Paragraph>asd asdas asdas</Paragraph>
       </main>
   );
 }

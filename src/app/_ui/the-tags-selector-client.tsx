@@ -1,11 +1,15 @@
 'use client';
+
 import {availableTagsAtom, selectedTagsAtom, queryToHistoryState, useAtom, historyStateToQuery} from "../_state/blog-post-query";
 import RefreshIcon from "@/app/_ui/_assets/_svgs/refresh-arrow.svg";
 import { Card } from "./_content/card";
 import clsx from "clsx";
+import { useAtomValue } from "jotai";
 
-export default function TheTagsSelector() {
-    const [availableTags] = useAtom(availableTagsAtom);
+type TheTagsSelectorProps = React.HTMLAttributes<HTMLDivElement>;
+
+export default function TheTagsSelector(props: TheTagsSelectorProps) {
+    const availableTags = useAtomValue(availableTagsAtom);
     const [selectedTags, setSelectedTags] = useAtom(selectedTagsAtom);
     useAtom(queryToHistoryState);
     historyStateToQuery();
@@ -31,7 +35,7 @@ export default function TheTagsSelector() {
     }
 
     return (
-        <Card fabric="papyrus" className="pl-2 py-2 relative pr-8" trim="true">
+        <Card fabric="papyrus" className={clsx(props.className, "pl-2 py-2 relative pr-8 w-full")} trim="true">
             <p className="heading text-leather/70 mb-4">
                 <span className="font-medium tracking-tight">Tags</span>
                 <span className="ml-1">
@@ -41,16 +45,16 @@ export default function TheTagsSelector() {
                 </span>
             </p>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-y-2 sm:gap-x-3 flex-wrap">
+            <div className="flex flex-row items-start gap-y-2 gap-x-3 flex-wrap">
                 {availableTags.map((tag)=>{
                     return (
                         <button 
-                            key={`tag-${tag.id}`}
-                            className={clsx('transition-all', {'bg-onyx-black text-papyrus px-2 rounded-xl': isSelected(tag.id)})}
+                            key={tag.attributes.Slug}
+                            className={clsx('transition-all text-left leading-none p-1 underline', {'bg-onyx-black text-papyrus px-2 rounded-xl no-underline': isSelected(tag.id)})}
                             onClick={()=>onTagButtonClicked(tag.id)}
                         >
                                 {tag.attributes.Title}
-                            </button>
+                        </button>
                     )
                 })}
             </div>

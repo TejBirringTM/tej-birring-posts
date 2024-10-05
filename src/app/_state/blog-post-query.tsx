@@ -7,8 +7,8 @@ import { useSearchParams } from 'next/navigation';
 
 export const searchEntryAtom = atom("");
 
-export const availableCategoriesAtom = atom(async () => await Categories.getAll());
-export const availableTagsAtom = atom(async () => await Tags.getAll());
+export const availableCategoriesAtom = atom(async ()=>await Categories.getAll());
+export const availableTagsAtom = atom(async ()=>await Tags.getAll());
 
 export const selectedCategoriesAtom = atom<Awaited<ReturnType<typeof Categories.getAll>>>([]);
 export const selectedTagsAtom = atom<Awaited<ReturnType<typeof Tags.getAll>>>([]);
@@ -52,7 +52,7 @@ export function historyStateToQuery() {
             setSelectedCategories(selectedCategories);
         }
 
-        if (query.tags) {availableTags
+        if (query.tags) {
             const selectedTags = availableTags.filter((tag)=>(query.tags as string[]).includes(tag.attributes.Slug));
             setSelectedTags(selectedTags);
         }

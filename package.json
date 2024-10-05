@@ -2,6 +2,9 @@
   "name": "tejbirring-ssr",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,7 +12,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@strapi/blocks-react-renderer": "^1.0.1",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
+    "husky": "^9.1.6",
     "jotai": "^2.9.3",
     "jotai-effect": "^1.0.3",
     "jotai-location": "^0.5.5",

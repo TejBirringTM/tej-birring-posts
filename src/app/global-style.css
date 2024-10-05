@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 * {
+    @apply subpixel-antialiased;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: geometricPrecision;
@@ -27,8 +28,32 @@ body {
   font-family: "Overpass";
 }
 
-p, h1, h2, h3, h4, h5, h6, p, span {
+p, h1, h2, h3, h4, h5, h6, p, span, blockquote {
   line-height: 1;
+}
+
+blockquote {
+  border-left: 0.2rem solid;
+  padding-left: 0.5rem;
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
+}
+blockquote::before {
+  content: "\"";
+  opacity: 0.8;
+}
+blockquote::after {
+  content: "\"";
+  opacity: 0.8;
+}
+
+pre {
+  line-height: 1;
+}
+pre>code {
+  font-size: 0.7rem;
+  letter-spacing: -0.05rem;
+  font-weight: 600;
 }
 
 h1, h2, h3, h4, h5, h6, .heading {
@@ -43,32 +68,41 @@ h1 {
 h2 {
   font-weight: 600;
   font-size: 3rem;
-  letter-spacing: -0.25rem;
+  letter-spacing: -0.15rem;
 }
 
 h3 {
   font-weight: 600;
   font-size: 2.441rem;
-  letter-spacing: -0.25rem;
+  letter-spacing: -0.15rem;
 }
 
 h4 {
   font-weight: 600;
   font-size: 1.953rem;
-  letter-spacing: -0.25rem;
+  letter-spacing: -0.15rem;
+}
+
+h5 {
+  font-weight: 600;
+  font-size: 1.564rem;
+  letter-spacing: -0.15rem;
+}
+
+h6 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: -0.1rem;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-@layer components {
-  .card {
-    @apply shadow-lg m-4 rounded-[0.3rem];
+  .smallcaps {
+    font-variant: small-caps;
   }
-  .card.trim {
+  .trim {
     border-bottom: 0.4rem solid;
     @media screen(sm) {
       border-bottom: 0.5rem solid;
@@ -76,6 +110,56 @@ h4 {
     @media screen(lg) {
       border-bottom: 0.6rem solid;
     }
+  }  
+}
+
+@layer components {
+  .button {
+    @apply leading-none font-semibold tracking-tight rounded transition-all;
+    font-family: "Rubik";
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    &:hover {
+      transform: translateY(-0.1rem);
+    }
+    &:active {
+      transform: translateY(0.05rem) scale(95%);
+      box-shadow: none;
+    }
+    &.xs {
+      @apply px-[8px] py-[4px] text-xs;
+    }
+    &.sm {
+      @apply px-[12px] py-[6px] text-sm;
+    }
+    &.md {
+      @apply px-[14px] py-[12px];
+    }
+    &.lg {
+      @apply px-[18px] py-[12px] text-lg;
+    }
+    &.xl {
+      @apply px-[22px] py-[14px] text-xl;
+    }
+    &.leather {
+      @apply bg-leather-trim text-bright-white/90;
+    }
+    &.papyrus {
+      @apply bg-papyrus text-jet-black/95;
+    }
+    &.iron {
+      @apply bg-iron-trim text-bright-white/90;
+    }
+    &.paper {
+      @apply bg-paper text-jet-black;
+    }
+    &:hover {
+      background-color: theme(colors.ecru);
+      color: theme(colors.jet-black);
+    }
+  }
+
+  .card {
+    @apply shadow-lg rounded-[0.3rem];
   }
   .card.leather {
     background-color: theme(colors.leather);
@@ -90,8 +174,144 @@ h4 {
     border-color: theme(colors.iron-trim);
   }
   .card.paper {
-    background-color: theme(colors.paper);
-    border-color: theme(colors.paper-trim);
+    background-color: theme(colors.bright-white);
+    border-color: theme(colors.paper);
   }
+
+  .spinner {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    padding: 6.7px;
+    animation: spinner-v8og74 1s infinite linear;
+  }
+  .spinner.paper {
+    background: conic-gradient(from 135deg at top,theme(colors.paper) 90deg, #0000 0) 0 calc(50% - 4.5px)/19px 9.5px,
+      radial-gradient(farthest-side at bottom left,#0000 calc(100% - 6.7px),theme(colors.paper) calc(100% - 5.6px) 99%,#0000) top right/50%  50% content-box content-box,
+      radial-gradient(farthest-side at top,#0000 calc(100% - 6.7px),theme(colors.paper) calc(100% - 5.6px) 99%,#0000) bottom   /100% 50% content-box content-box;    
+    background-repeat: no-repeat;    
+  }
+
+  @keyframes spinner-v8og74 {
+    100% {
+        transform: rotate(1turn);
+    }
+  }  
 }
+
+.content {
+  @apply max-w-prose;
   
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    &:first-child {
+      margin-top: 1rem;
+    }
+  }
+
+  h1 {
+    font-size: 3rem;
+    letter-spacing: -0.15rem;
+  }
+  
+  h2 {
+    font-size: 2.441rem;
+    letter-spacing: -0.15rem;
+  }
+  
+  h3 {
+    font-size: 1.953rem;
+    letter-spacing: -0.15rem;
+  }
+  
+  h4 {
+    font-size: 1.564rem;
+    letter-spacing: -0.15rem;
+  }
+  
+  h5 {
+    font-size: 1.2rem;
+    letter-spacing: -0.1rem;
+  } 
+
+  h6 {
+    font-size: 0.92rem;
+    letter-spacing: -0.05rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+  }
+
+  blockquote {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    
+  }  
+
+  p, ul, ol {
+  line-height: 1.5;
+    @media screen(sm) {
+      line-height: 1.6;
+    }
+  }
+
+  code {
+    background-color: theme(colors.jet-black);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+  
+  pre {
+    @apply shadow-md;
+    background-color: theme(colors.jet-black);
+    color: theme(colors.paper);
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-size: 0.9em;
+  }
+  
+  pre code {
+    background-color: transparent;
+    padding: 0;
+  }
+
+  /* :last-child {
+    margin-bottom: 0;
+  } */
+
+  ul, ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+    ::marker {
+      font-weight: 600;
+    }
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+  
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+  /* ul > li {
+    &::before {
+      content: "•";
+      margin-right: 0.6rem;
+    }
+  } */
+}

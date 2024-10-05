@@ -1,11 +1,15 @@
 'use client';
+
 import {availableCategoriesAtom, selectedCategoriesAtom, queryToHistoryState, useAtom, historyStateToQuery} from "../_state/blog-post-query";
 import RefreshIcon from "@/app/_ui/_assets/_svgs/refresh-arrow.svg";
 import { Card } from "./_content/card";
 import clsx from "clsx";
+import { useAtomValue } from "jotai";
 
-export default function TheCategoriesSelector() {
-    const [availableCategories] = useAtom(availableCategoriesAtom);
+type TheCategoriesSelectorProps = React.HTMLAttributes<HTMLDivElement>;
+
+export default function TheCategoriesSelector(props: TheCategoriesSelectorProps) {
+    const availableCategories = useAtomValue(availableCategoriesAtom);
     const [selectedCategories, setSelectedCategories] = useAtom(selectedCategoriesAtom);
     useAtom(queryToHistoryState);
     historyStateToQuery();
@@ -31,7 +35,7 @@ export default function TheCategoriesSelector() {
     }
 
     return (
-        <Card fabric="papyrus" className="pl-2 py-2 relative pr-8" trim="true">
+        <Card fabric="papyrus" className={clsx(props.className, "pl-2 py-2 relative pr-8 w-full")} trim="true">
             <p className="heading text-leather/70 mb-4">
                 <span className="font-medium tracking-tight">Categories</span>
                 <span className="ml-1">
@@ -41,12 +45,12 @@ export default function TheCategoriesSelector() {
                 </span>
             </p>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-y-2 sm:gap-x-3 flex-wrap">
+            <div className="flex flex-row items-start gap-y-2 gap-x-3 flex-wrap">
                 {availableCategories.map((cat)=>{
                     return (
                         <button 
-                            key={`category-${cat.id}`}
-                            className={clsx('transition-all', {'bg-onyx-black text-papyrus px-2 rounded-xl': isSelected(cat.id)})}
+                            key={`category-${cat.attributes.Slug}`}
+                            className={clsx('transition-all text-left leading-none p-1 underline', {'bg-onyx-black text-papyrus px-2 rounded-xl no-underline': isSelected(cat.id)})}
                             onClick={()=>onCategoryButtonClicked(cat.id)}
                         >
                                 {cat.attributes.Title}
