@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      transitionProperty: {
+        'max-height': 'max-height'
+      },
       colors: {
         "ecru": "#e6c27c",
         "papyrus": "#e5d2bc",
@@ -21,7 +24,7 @@ const config: Config = {
         "leather-trim": "#675C5A",
         "papyrus-trim": "#CDBCA8",
         "iron-trim": "#6B7A89",
-        "paper-trim": "#f6f6f6"
+        "paper-trim": "#e1e5eb"
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
