@@ -1,4 +1,4 @@
-import { SiteData } from "../blog-data"
+import { SiteData } from "../strapi-data-source"
 import LinkedIn from "@/app/_ui/_assets/_svgs/pixel-perfect-filled/social/linkedin.svg";
 
 export async function TheFooterSocialMediaLinks() {

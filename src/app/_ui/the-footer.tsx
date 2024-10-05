@@ -1,4 +1,4 @@
-import { SiteData } from "../blog-data";
+import { SiteData } from "../strapi-data-source";
 import { Paragraph, Title } from "./_content/typography";
 import Pen from "@/app/_ui/_assets/_svgs/pen-circle.svg"
 import { TheFooterSocialMediaLinks } from "./the-footer-social-media-links";
@@ -29,7 +29,7 @@ export default async function TheFooter() {
                 </div>
 
                 <div className="flex flex-col justify-end">
-                    <Paragraph className="text-paper/70 text-xs tracking-wider leading-none">Copyright © {year} Tej Birring</Paragraph>
+                    <Paragraph className="text-paper/70 text-xs sm:text-[0.65rem] tracking-wider leading-none">Copyright © {year} Tej Birring</Paragraph>
                 </div>
             </div>
 

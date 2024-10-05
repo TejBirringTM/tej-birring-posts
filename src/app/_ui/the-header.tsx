@@ -1,4 +1,4 @@
-import { SiteData } from "../blog-data";
+import { SiteData } from "../strapi-data-source";
 import { Title } from "./_content/typography";
 import Pen from "@/app/_ui/_assets/_svgs/pen-circle.svg"
 

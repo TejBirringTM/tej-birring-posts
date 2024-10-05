@@ -3,7 +3,7 @@ import TheCategoriesSelector from "./_ui/the-categories-selector-client";
 import TheTagsSelector from "./_ui/the-tags-selector-client";
 import TheBlogPosts from "./_ui/the-blog-posts-pagination";
 
-export default function Home() {
+export default function HomePage() {
   
   return (
       <main className="min-h-screen">

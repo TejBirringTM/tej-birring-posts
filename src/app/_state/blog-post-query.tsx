@@ -1,5 +1,5 @@
 import { atom, useAtom } from 'jotai';
-import { BlogPosts, Categories, Tags } from '../blog-data';
+import { Categories, Tags } from '../strapi-data-source';
 import { atomEffect } from 'jotai-effect'
 import qs from "qs";
 import { useEffect } from 'react';

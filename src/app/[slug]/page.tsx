@@ -1,4 +1,4 @@
-import { BlogPosts } from "@/app/blog-data";
+import { BlogPosts } from "@/app/strapi-data-source";
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { Title } from "../_ui/_content/typography";
 import { Card, CardContent } from "../_ui/_content/card";
@@ -15,7 +15,7 @@ type BlogPostParams = {
     }
 }
 
-export default async function BlogPost(params: BlogPostParams) {
+export default async function BlogPostPage(params: BlogPostParams) {
     const blogPostSlug = params.params.slug;
     const blogPost = (await BlogPosts.get({
             filters: {

@@ -1,9 +1,8 @@
 import { atom } from "jotai";
-import { BlogPosts } from "../blog-data";
+import { BlogPosts } from "../strapi-data-source";
 import { searchEntryAtom, selectedCategoriesAtom, selectedTagsAtom } from "./blog-post-query";
 import merge from "lodash.merge";
 import { atomEffect } from "jotai-effect";
-import dayjs from "dayjs";
 
 type BlogPosts = Awaited<ReturnType<typeof BlogPosts["get"]>>["data"];
 
