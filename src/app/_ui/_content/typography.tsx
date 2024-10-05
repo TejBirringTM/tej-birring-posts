@@ -12,5 +12,8 @@ export const HeadingL2 = (props: PropsWithChildren<HeadingL2Props>) => (<h3 {...
 type HeadingL3Props = {} & React.HTMLAttributes<HTMLHeadingElement>;
 export const HeadingL3 = (props: PropsWithChildren<HeadingL3Props>) => (<h4 {...props}></h4>);
 
+type HeadingL4Props = {} & React.HTMLAttributes<HTMLHeadingElement>;
+export const HeadingL4 = (props: PropsWithChildren<HeadingL4Props>) => (<h5 {...props}></h5>);
+
 type ParagraphProps = {} & React.HTMLAttributes<HTMLParagraphElement>;
 export const Paragraph = (props: PropsWithChildren<ParagraphProps>) => (<p {...props}></p>);
