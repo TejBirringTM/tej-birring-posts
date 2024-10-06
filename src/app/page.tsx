@@ -39,7 +39,7 @@ export async function generateMetadata(
     publisher: siteData.data.attributes.Author ? `${siteData.data.attributes.Author.FirstName} ${siteData.data.attributes.Author.LastName}` : siteData.data.attributes.Title,
     creator: siteData.data.attributes.Author ? `${siteData.data.attributes.Author.FirstName} ${siteData.data.attributes.Author.LastName}` : siteData.data.attributes.Title,
 
-    robots: {index: false, follow: true},
+    robots: {index: true, follow: true},
 
     openGraph: {
       siteName: siteData.data.attributes.Title,

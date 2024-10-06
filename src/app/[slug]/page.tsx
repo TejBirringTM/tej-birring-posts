@@ -11,7 +11,6 @@ import Link from "next/link";
 import { Metadata, ResolvingMetadata } from "next";
 import JsonLinkingData from "../_ui/_content/json-linking-data";
 import { WithContext, Article, CategoryCode, DefinedTerm } from 'schema-dts'
-import { useEffect, useRef } from "react";
 
 type BlogPostArgs = {
     params: {
@@ -40,7 +39,7 @@ export async function generateMetadata(
       
       creator: siteData.data.attributes.Author ? `${siteData.data.attributes.Author.FirstName} ${siteData.data.attributes.Author.LastName}` : siteData.data.attributes.Title,
   
-      robots: {index: false, follow: true},
+      robots: {index: true, follow: true},
   
       openGraph: {
         title: blogPost.attributes.Title,
@@ -192,7 +191,7 @@ export default async function BlogPostPage({params}: BlogPostArgs) {
             </Card>
 
             <div className="flex flex-row justify-stretch gap-4 sm:mx-4">
-                <Card fabric="paper" className="grow xl:max-w-fit">
+                <Card fabric="paper" className="grow">
                     <CardContent className="text-jet-black content overflow-hidden [&_a]:text-iron-trim">
                         <BlocksRenderer content={blogPost.attributes.Content} />
                     </CardContent>
