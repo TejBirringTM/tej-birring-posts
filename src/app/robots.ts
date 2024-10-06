@@ -12,8 +12,10 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
   return {
     rules: {
       userAgent: '*',
-      allow: posts.map((post)=>`/${post.attributes.Slug}`),
-      disallow: '/',
+      allow: [
+        "/",
+        ...posts.map((post)=>`/${post.attributes.Slug}`)
+      ],
     },
     sitemap: url("/sitemap.xml"),
   }
