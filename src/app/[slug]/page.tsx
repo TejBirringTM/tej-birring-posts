@@ -1,4 +1,4 @@
-import { BlogPosts } from "@/app/strapi-data-source";
+import { BlogPosts, SiteData } from "@/app/strapi-data-source";
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { Title } from "../_ui/_content/typography";
 import { Card, CardContent } from "../_ui/_content/card";
@@ -8,15 +8,69 @@ import dayjs from "dayjs";
 import AngleLeftIcon from "@/app/_ui/_assets/_svgs/angle-small-left.svg";
 import { notFound } from 'next/navigation'
 import Link from "next/link";
+import { Metadata, ResolvingMetadata } from "next";
+import JsonLinkingData from "../_ui/_content/json-linking-data";
+import { WithContext, Article, CategoryCode, DefinedTerm } from 'schema-dts'
+import { useEffect, useRef } from "react";
 
-type BlogPostParams = {
+type BlogPostArgs = {
     params: {
         slug: string
     }
 }
+  
+export async function generateMetadata(
+    { params }: BlogPostArgs,
+    parent: ResolvingMetadata
+  ): Promise<Metadata> {
+    const siteData = await SiteData.get();
+    const blogPost = await getBlogPostFromSlug(params.slug);
+  
+    return {
+      title: `${blogPost.attributes.Title} — ${siteData.data.attributes.Title}`,
+      description: siteData.data.attributes.Description,
+      applicationName: siteData.data.attributes.Title,
+      publisher: siteData.data.attributes.Title,
+      
+      authors: siteData.data.attributes.Author ? {
+        name: `${siteData.data.attributes.Author.FirstName} ${siteData.data.attributes.Author.LastName}`,
+        url: siteData.data.attributes.Author.LinkedInProfileURL ?? undefined
+      } : undefined,
+      generator: undefined,
+      
+      creator: siteData.data.attributes.Author ? `${siteData.data.attributes.Author.FirstName} ${siteData.data.attributes.Author.LastName}` : siteData.data.attributes.Title,
+  
+      robots: {index: false, follow: true},
+  
+      openGraph: {
+        title: blogPost.attributes.Title,
+        description: blogPost.attributes.Excerpt ?? siteData.data.attributes.Description ?? undefined,
+        url: new URL(`/${params.slug}`, siteData.data.attributes.BaseURL).href,
 
-export default async function BlogPostPage(params: BlogPostParams) {
-    const blogPostSlug = params.params.slug;
+        siteName: siteData.data.attributes.Title,
+        determiner: siteData.data.attributes.TitleDeterminer === "(empty)" ? "" : siteData.data.attributes.TitleDeterminer,
+        emails: siteData.data.attributes.Author?.EmailAddress ?? undefined,
+        phoneNumbers: siteData.data.attributes.Author?.PhoneNumber ?? undefined,
+        locale: "en",
+
+        type: "article",
+        authors: siteData.data.attributes.Author ?  `${siteData.data.attributes.Author.FirstName} ${siteData.data.attributes.Author.LastName}` : undefined,
+        publishedTime: blogPost.attributes.publishedAt,
+        modifiedTime: blogPost.attributes.updatedAt,
+        section: blogPost.attributes.Category.data.attributes.Title,
+        tags: blogPost.attributes.Tags.data.map((tag)=>tag.attributes.Title)
+      },
+  
+      // twitter: {
+      //   title: siteData.data.attributes.Title,
+      //   description: siteData.data.attributes.Description ?? undefined,
+      //   creator: siteData.data.attributes.Author ?  `${siteData.data.attributes.Author.FirstName} ${siteData.data.attributes.Author.LastName}` : undefined,
+      // },
+    }
+  }
+
+async function getBlogPostFromSlug(slug: string) {
+    const blogPostSlug = slug;
     const blogPost = (await BlogPosts.get({
             filters: {
                 Slug: {
@@ -25,13 +79,68 @@ export default async function BlogPostPage(params: BlogPostParams) {
             },
             populate: "*"
         })).data[0] ?? undefined;
-    
     if (!blogPost) {
         return notFound();
+    } else {
+        return blogPost;
     }
+} 
+
+export default async function BlogPostPage({params}: BlogPostArgs) {
+    const siteData = await SiteData.get();
+    const blogPost = await getBlogPostFromSlug(params.slug);
+
+    const year = new Date().getFullYear();
+    const urlString = (route: string) => new URL(route, siteData.data.attributes.BaseURL).href;
+
+    const jsonLd: WithContext<Article> = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        
+        copyrightHolder: siteData.data.attributes.CopyrightOwner,
+        copyrightNotice: `Copyright © ${year} ${ siteData.data.attributes.CopyrightOwner }`,
+        copyrightYear: year,
+        
+        
+        name: blogPost.attributes.Title,
+        description: blogPost.attributes.Excerpt ?? undefined,
+        dateModified: blogPost.attributes.updatedAt,
+        datePublished: blogPost.attributes.publishedAt,
+
+        inLanguage: {
+          "@type": "Language",
+          name: "English"
+        },
+    
+        author: siteData.data.attributes.Author ? `${siteData.data.attributes.Author.FirstName} ${siteData.data.attributes.Author.LastName}` : undefined,
+        publisher: siteData.data.attributes.Author ? `${siteData.data.attributes.Author.FirstName} ${siteData.data.attributes.Author.LastName}` : siteData.data.attributes.Title,
+    
+        url: urlString(`/${blogPost.attributes.Slug}`),
+        
+        isFamilyFriendly: true,
+        isAccessibleForFree: true,
+    
+        
+        keywords: blogPost.attributes.Tags.data.map((tag)=>({
+            "@type": "DefinedTerm",
+            name: tag.attributes.Title,
+            description: tag.attributes.Description ?? undefined,
+            termCode: tag.attributes.Slug,
+            url: urlString(`/?search=&tags%5B0%5D=${tag.attributes.Slug}`),
+        } satisfies DefinedTerm)),
+    
+        about: {
+            "@type": "CategoryCode",
+            name: blogPost.attributes.Category.data.attributes.Title,
+            description: blogPost.attributes.Category.data.attributes.Description ?? undefined,
+            url: urlString(`/?search=&categories%5B0%5D=${blogPost.attributes.Category.data.attributes.Slug}`),
+            termCode: blogPost.attributes.Category.data.attributes.Slug,
+          } satisfies CategoryCode
+      }
 
     return (
         <main className="min-h-screen">
+            <JsonLinkingData jsonLd={jsonLd} />
 
             <div className="flex flex-row justify-between mb-4 mx-2 sm:mx-4">
                 <Link className="rounded-full flex flex-row justify-center items-center hover:bg-bright-white hover:fill-iron fill-bright-white border-bright-white border size-8 opacity-80 cursor-pointer hover:opacity-100 transition-opacity" href="/">
@@ -72,9 +181,9 @@ export default async function BlogPostPage(params: BlogPostParams) {
                         {blogPost.attributes.Tags.data.length > 0 && (
                             <div className="flex gap-1 order-3">
                                 { blogPost.attributes.Tags.data.map((tag)=>(
-                                    <a key={tag.attributes.Slug} className="text-xs text-paper border-paper hover:bg-paper hover:text-iron border rounded-full inline-block px-2 py-0.5 cursor-pointer transition-all" href={`http://localhost:3000/?search=&tags%5B0%5D=${tag.attributes.Slug}`}>
+                                    <Link key={tag.attributes.Slug} className="text-xs text-paper border-paper hover:bg-paper hover:text-iron border rounded-full inline-block px-2 py-0.5 cursor-pointer transition-all" href={`/?search=&tags%5B0%5D=${tag.attributes.Slug}`}>
                                         {tag.attributes.Title}
-                                    </a>
+                                    </Link>
                                 ))}
                             </div>
                         )}
@@ -89,17 +198,10 @@ export default async function BlogPostPage(params: BlogPostParams) {
                     </CardContent>
                 </Card>
 
-                {/* Nav Panel */}
-                <Card fabric="paper" className="hidden xl:block grow bg-opacity-10">
-                    <CardContent className="text-jet-black p-2 overflow-hidden [&_a]:text-iron-trim">
-                        <h5>Adverts</h5>
-                    </CardContent>
-                </Card>
-
-                {/* Ads Panel */}
-                {/* <Card fabric="paper" className="hidden xl:block grow">
-                    <CardContent className="text-jet-black p-2 overflow-hidden [&_a]:text-iron-trim">
-                        <h5>asd</h5>
+                {/* Navigation Panel */}
+                {/* <Card fabric="papyrus" className="hidden xl:block grow">
+                    <CardContent className="text-leather p-2 overflow-hidden [&_a]:text-iron-trim">
+                        <h6>Menu</h6>
                     </CardContent>
                 </Card> */}
             </div>
