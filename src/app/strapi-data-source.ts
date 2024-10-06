@@ -89,6 +89,9 @@ class StrapiEntity<T extends ZodRawShape> {
 
     async get() {
         const url = new URL(`${config.STRAPI_BASE_URL}/api/${this.apiId}`);
+        url.search = qs.stringify({
+            populate: "*",
+        });
         const response = await fetch(url, {
             headers: {
                 authorization: `Bearer ${config.STRAPI_API_KEY}`
@@ -133,7 +136,8 @@ class StrapiEntities<T extends ZodRawShape> {
             pagination: {
                 page: pageNumber,
             },
-            status: "published"
+            status: "published",
+            populate: "*",
         });
         const firstPage = await getPage(1);
         if (!firstPage.meta?.pagination.pageCount) {
@@ -181,7 +185,27 @@ export const BlogPosts = new StrapiEntities("blog-posts", z.object({
 }));
 
 export const SiteData = new StrapiEntity("site", z.object({
+    Title: z.string(),
+    TitleDeterminer: z.union([
+        z.literal("a"),
+        z.literal("an"),
+        z.literal("the"),
+        z.literal("auto"),
+        z.literal("(empty)")
+    ]),
     Slogan: z.string().nullish(),
     Description: z.string().nullish(),
-    LinkedInProfileURL: z.string().nullish()
+    CopyrightOwner: z.string(),
+    Author: z.object({
+        FirstName: z.string(),
+        LastName: z.string(),
+        Gender: z.union([
+            z.literal("male"),
+            z.literal("female"),
+        ]).nullish(),
+        EmailAddress: z.string().nullish(),
+        PhoneNumber: z.string().nullish(),
+        LinkedInProfileURL: z.string().nullish(),
+    }).nullish(),
+    BaseURL: z.string(),
 }));
