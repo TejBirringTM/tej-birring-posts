@@ -14,7 +14,7 @@ export const selectedCategoriesAtom = atom<Awaited<ReturnType<typeof Categories.
 export const selectedTagsAtom = atom<Awaited<ReturnType<typeof Tags.getAll>>>([]);
 
 // push (client-side) state to URL query
-export const queryToHistoryState = atomEffect((get, set)=>{
+export const syncBrowserSearchQueryToHistoryState = atomEffect((get)=>{
     const searchEntry = get(searchEntryAtom);
     const selectedCategories = get(selectedCategoriesAtom);
     const selectedTags = get(selectedTagsAtom);
@@ -31,7 +31,7 @@ export const queryToHistoryState = atomEffect((get, set)=>{
 });
 
 // push URL query to (client-side) state
-export function historyStateToQuery() {
+export function useSyncBrowserHistoryStateToSearchQuery() {
     const searchParams = useSearchParams();
     const [searchEntry, setSearchEntry] = useAtom(searchEntryAtom);
     const [availableCategories] = useAtom(availableCategoriesAtom);

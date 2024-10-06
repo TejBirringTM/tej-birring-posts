@@ -1,6 +1,6 @@
 'use client';
 
-import {availableTagsAtom, selectedTagsAtom, queryToHistoryState, useAtom, historyStateToQuery} from "../_state/blog-post-query";
+import {availableTagsAtom, selectedTagsAtom, syncBrowserSearchQueryToHistoryState, useAtom, useSyncBrowserHistoryStateToSearchQuery} from "../_state/blog-post-query";
 import RefreshIcon from "@/app/_ui/_assets/_svgs/refresh-arrow.svg";
 import { Card } from "./_content/card";
 import clsx from "clsx";
@@ -11,8 +11,8 @@ type TheTagsSelectorProps = React.HTMLAttributes<HTMLDivElement>;
 export default function TheTagsSelector(props: TheTagsSelectorProps) {
     const availableTags = useAtomValue(availableTagsAtom);
     const [selectedTags, setSelectedTags] = useAtom(selectedTagsAtom);
-    useAtom(queryToHistoryState);
-    historyStateToQuery();
+    useAtom(syncBrowserSearchQueryToHistoryState);
+    useSyncBrowserHistoryStateToSearchQuery();
 
     function onTagButtonClicked(tagId: number) {
         if (!selectedTags.find((tag)=>tag.id === tagId)) {

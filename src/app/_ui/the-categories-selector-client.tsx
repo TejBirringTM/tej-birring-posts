@@ -1,6 +1,6 @@
 'use client';
 
-import {availableCategoriesAtom, selectedCategoriesAtom, queryToHistoryState, useAtom, historyStateToQuery} from "../_state/blog-post-query";
+import {availableCategoriesAtom, selectedCategoriesAtom, syncBrowserSearchQueryToHistoryState, useAtom, useSyncBrowserHistoryStateToSearchQuery} from "../_state/blog-post-query";
 import RefreshIcon from "@/app/_ui/_assets/_svgs/refresh-arrow.svg";
 import { Card } from "./_content/card";
 import clsx from "clsx";
@@ -11,8 +11,8 @@ type TheCategoriesSelectorProps = React.HTMLAttributes<HTMLDivElement>;
 export default function TheCategoriesSelector(props: TheCategoriesSelectorProps) {
     const availableCategories = useAtomValue(availableCategoriesAtom);
     const [selectedCategories, setSelectedCategories] = useAtom(selectedCategoriesAtom);
-    useAtom(queryToHistoryState);
-    historyStateToQuery();
+    useAtom(syncBrowserSearchQueryToHistoryState);
+    useSyncBrowserHistoryStateToSearchQuery();
 
     function onCategoryButtonClicked(categoryId: number) {
         if (!selectedCategories.find((cat)=>cat.id === categoryId)) {

@@ -6,6 +6,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import { Categories, SiteData, Tags } from "./strapi-data-source";
 import { WithContext, WebSite, CategoryCode, DefinedTerm } from 'schema-dts'
 import JsonLinkingData from "./_ui/_content/json-linking-data";
+import { Suspense } from "react";
 
 type BlogPostArgs = {
     params: {
@@ -120,14 +121,16 @@ export default async function HomePage() {
       <main className="min-h-screen">
         <JsonLinkingData jsonLd={jsonLd} />
 
-        <TheSearchBox />
+        <Suspense>
+          <TheSearchBox />
 
-        <div className="flex flex-col sm:flex-row sm:justify-stretch gap-4 mb-4 px-4">
-          <TheCategoriesSelector />
-          <TheTagsSelector />
-        </div>
-        
-        <TheBlogPosts />
+          <div className="flex flex-col sm:flex-row sm:justify-stretch gap-4 mb-4 px-4">
+            <TheCategoriesSelector />
+            <TheTagsSelector />
+          </div>
+          
+          <TheBlogPosts />
+        </Suspense>
       </main>
   );
 }

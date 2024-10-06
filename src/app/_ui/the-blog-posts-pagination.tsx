@@ -24,7 +24,8 @@ function TheBlogPosts() {
                 </p>
                 <div className="flex flex-col gap-4">
                 { posts.map((post)=>(
-                    <Link  key={post.attributes.Slug} 
+                    <Link  
+                        key={`post-${post.attributes.Slug}`} 
                         className="card paper p-2 group hover:scale-[101%] opacity-90 hover:opacity-100 active:scale-[98%] active:opacity-50 transition-all border-b-8 hover:border-ecru cursor-pointer flex flex-col"
                         href={`/${post.attributes.Slug}`}
                     >
@@ -59,7 +60,7 @@ function TheBlogPosts() {
                         {post.attributes.Tags.data.length > 0 && (
                             <div className="flex gap-1 mt-2 mb-2 order-3">
                                 { post.attributes.Tags.data.map((tag)=>(
-                                    <div key={tag.attributes.Slug} className="text-xs text-paper bg-iron/80 rounded-full inline-block px-2 py-0.5 font-medium">
+                                    <div key={`tag-${tag.attributes.Slug}`} className="text-xs text-paper bg-iron/80 rounded-full inline-block px-2 py-0.5 font-medium">
                                         {tag.attributes.Title}
                                     </div>
                                 ))}
@@ -81,7 +82,7 @@ function TheBlogPosts() {
                     (pageCount > 1) && <div className="flex flex-row gap-2 mt-4">
                         {
                             Array.from({ length: pageCount }, (_, index) => index + 1).map((pageNumberOption)=>(
-                                <button className={clsx("border border-paper rounded-full size-6 flex flex-col items-center justify-center text-xs font-semibold leading-none hover:bg-paper hover:text-iron transition-all", {"text-iron bg-paper cursor-default": pageNumberOption === pageNumber}, {"text-paper": pageNumberOption !== pageNumber})} onClick={()=>setPageNumber(pageNumberOption)}>
+                                <button key={`page-no-${pageNumberOption}`} className={clsx("border border-paper rounded-full size-6 flex flex-col items-center justify-center text-xs font-semibold leading-none hover:bg-paper hover:text-iron transition-all", {"text-iron bg-paper cursor-default": pageNumberOption === pageNumber}, {"text-paper": pageNumberOption !== pageNumber})} onClick={()=>setPageNumber(pageNumberOption)}>
                                     <span className="-mb-0.5">{pageNumberOption}</span>
                                 </button>
                             ))

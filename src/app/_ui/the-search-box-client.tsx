@@ -4,7 +4,7 @@ import { Card } from "./_content/card";
 import { HeadingL3 } from "./_content/typography";
 import MagnifyingGlass from "./_assets/_svgs/magnifying-glass.svg"
 import { ChangeEvent, useEffect, useRef } from "react";
-import {historyStateToQuery, queryToHistoryState, searchEntryAtom, useAtom} from "../_state/blog-post-query";
+import {useSyncBrowserHistoryStateToSearchQuery, syncBrowserSearchQueryToHistoryState, searchEntryAtom, useAtom} from "../_state/blog-post-query";
 import debounce from "lodash.debounce";
 import RefreshIcon from "@/app/_ui/_assets/_svgs/refresh-arrow.svg";
 import clsx from "clsx";
@@ -12,8 +12,8 @@ import clsx from "clsx";
 export default function TheSearchBox() {    
     // state
     const [searchEntry, setSearchEntry] = useAtom(searchEntryAtom);
-    useAtom(queryToHistoryState);
-    historyStateToQuery();
+    useAtom(syncBrowserSearchQueryToHistoryState);
+    useSyncBrowserHistoryStateToSearchQuery();
 
     // focus on text input element on click
     const inputEl = useRef<HTMLInputElement>(null);
