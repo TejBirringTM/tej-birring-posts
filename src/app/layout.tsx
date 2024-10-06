@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Rubik, Overpass } from "next/font/google";
 import "./global-style.css";
 import TheFooter from "./_ui/the-footer";
@@ -7,11 +6,6 @@ import { Provider } from 'jotai'
 
 const rubik = Rubik({ subsets: ["latin"] });
 const overpass = Overpass({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Tej Birring",
-  description: "Some description...",
-};
 
 export default function RootLayout({
   children,
