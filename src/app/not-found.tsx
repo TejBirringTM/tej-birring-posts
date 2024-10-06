@@ -12,7 +12,7 @@ export default function NotFound() {
                 <h5 className="text-center text-paper">
                     Not Found (404)
                 </h5>
-                <p className="text-center text-paper mb-2">We could not find the resource you requested.</p>         
+                <p className="text-center text-paper mb-4">We could not find the resource you requested.</p>
                 <Link href="/">
                   <Button fabric="papyrus" size="xl">Home</Button>            
                 </Link>
