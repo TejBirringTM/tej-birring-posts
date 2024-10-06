@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import CalendarCreatedIcon from "@/app/_ui/_assets/_svgs/calendar-created.svg"
 import CalendarUpdatedIcon from "@/app/_ui/_assets/_svgs/calendar-updated.svg"
 import clsx from "clsx";
+import Link from "next/link";
 
 function TheBlogPosts() {
     const posts = useAtomValue(postsAtom);
@@ -23,7 +24,7 @@ function TheBlogPosts() {
                 </p>
                 <div className="flex flex-col gap-4">
                 { posts.map((post)=>(
-                    <a  key={post.attributes.Slug} 
+                    <Link  key={post.attributes.Slug} 
                         className="card paper p-2 group hover:scale-[101%] opacity-90 hover:opacity-100 active:scale-[98%] active:opacity-50 transition-all border-b-8 hover:border-ecru cursor-pointer flex flex-col"
                         href={`/${post.attributes.Slug}`}
                     >
@@ -73,7 +74,7 @@ function TheBlogPosts() {
                         }
 
                         
-                    </a>
+                    </Link>
                 ))}
                 </div>
                 {

@@ -15,7 +15,7 @@ export default async function TheFooter() {
                     <Link href="/" className="block w-fit">
                         <Title className="text-[1.7rem] mb-2 text-paper fill-paper">
                             <Pen className="inline-block size-8 mr-2.5 -mt-2" />
-                            Tej Birring
+                            { siteData.data.attributes.Title }
                         </Title>
                     </Link>
                     
@@ -29,7 +29,9 @@ export default async function TheFooter() {
                 </div>
 
                 <div className="flex flex-col justify-end">
-                    <Paragraph className="text-paper/70 text-xs sm:text-[0.65rem] tracking-wider leading-none">Copyright © {year} Tej Birring</Paragraph>
+                    <Paragraph className="text-paper/70 text-xs sm:text-[0.65rem] tracking-wider leading-none">
+                        Copyright © {year} { siteData.data.attributes.CopyrightOwner }
+                    </Paragraph>
                 </div>
             </div>
 

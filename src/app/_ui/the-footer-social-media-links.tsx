@@ -8,8 +8,8 @@ export async function TheFooterSocialMediaLinks() {
         <span className="text-xs text-papyrus">Stay up to date and connect with me on:</span>
         <div className="mb-2 md:mb-0 flex flex-row gap-4">
             {
-                siteData.data.attributes.LinkedInProfileURL &&
-                <a href={siteData.data.attributes.LinkedInProfileURL} className="border rounded-full border-papyrus fill-papyrus flex items-center justify-center size-6 p-1.5 hover:bg-papyrus hover:fill-onyx-black transition-all">
+                siteData.data.attributes.Author?.LinkedInProfileURL &&
+                <a href={siteData.data.attributes.Author.LinkedInProfileURL} className="border rounded-full border-papyrus fill-papyrus flex items-center justify-center size-7 p-1.5 hover:bg-papyrus hover:fill-onyx-black transition-all">
                     <LinkedIn className="w-fit h-fit" />
                 </a>
             }    
