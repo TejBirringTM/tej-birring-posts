@@ -11,7 +11,7 @@ export default async function TheFooter() {
     return (
         <footer className="bg-jet-black px-4 pt-4 pb-2 mt-12">
             <div className="flex flex-col md:flex-row md:justify-between">
-                <div>
+                <div className="w-fit">
                     <Link href="/" className="block w-fit">
                         <Title className="text-[1.7rem] mb-2 text-paper fill-paper">
                             <Pen className="inline-block size-8 mr-2.5 -mt-2" />
@@ -20,7 +20,7 @@ export default async function TheFooter() {
                     </Link>
                     
                     { siteData.data.attributes.Description && 
-                        <Paragraph className="text-xs leading-none text-ecru max-w-72 mb-4">
+                        <Paragraph className="text-xs max-w-72 lg:max-w-prose leading-none text-ecru mb-4">
                             { siteData.data.attributes.Description }
                         </Paragraph>
                     }
