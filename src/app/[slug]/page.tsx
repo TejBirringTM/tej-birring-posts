@@ -6,11 +6,12 @@ import CalendarCreatedIcon from "@/app/_ui/_assets/_svgs/calendar-created.svg"
 import CalendarUpdatedIcon from "@/app/_ui/_assets/_svgs/calendar-updated.svg"
 import dayjs from "dayjs";
 import AngleLeftIcon from "@/app/_ui/_assets/_svgs/angle-small-left.svg";
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import Link from "next/link";
 import { Metadata, ResolvingMetadata } from "next";
 import JsonLinkingData from "../_ui/_content/json-linking-data";
 import { WithContext, Article, CategoryCode, DefinedTerm } from 'schema-dts'
+import config from "@/config";
 
 type BlogPostArgs = {
     params: {
@@ -70,6 +71,7 @@ export async function generateMetadata(
 
 async function getBlogPostFromSlug(slug: string) {
     const blogPostSlug = slug;
+
     const blogPost = (await BlogPosts.get({
             filters: {
                 Slug: {
@@ -77,17 +79,23 @@ async function getBlogPostFromSlug(slug: string) {
                 }
             },
             populate: "*"
-        })).data[0] ?? undefined;
-    if (!blogPost) {
-        return notFound();
-    } else {
-        return blogPost;
-    }
+        }));
+    
+        if (!blogPost) {
+            return notFound();
+        } else {
+            return blogPost
+        }        
 } 
 
 export default async function BlogPostPage({params}: BlogPostArgs) {
+    if (params.slug === "admin") {
+        return redirect(`${config.STRAPI_BASE_URL}/admin`);
+    }
+
     const siteData = await SiteData.get();
     const blogPost = await getBlogPostFromSlug(params.slug);
+    
 
     const year = new Date().getFullYear();
     const urlString = (route: string) => new URL(route, siteData.data.attributes.BaseURL).href;
