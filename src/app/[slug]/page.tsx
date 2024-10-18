@@ -184,7 +184,7 @@ export default async function BlogPostPage({params}: BlogPostArgs) {
             </div>
 
             <Card fabric="iron" className="sm:mx-4 mb-4" trim="true">
-                <CardContent>
+                <CardContent className="lg:px-14 xl:px-24 xl:py-8">
                     <div className="mb-2">
                         <Title className="text-paper text-center sm:text-left">{blogPost.attributes.Title}</Title>
                         <p className="text-paper text-lg text-center sm:text-left">in <a className="font-bold underline cursor-pointer hover:rounded-full hover:px-2 hover:py-05 hover:bg-paper hover:text-iron transition-all" href={`/?search=&categories%5B0%5D=${blogPost.attributes.Category.data.attributes.Slug}`}>{blogPost.attributes.Category.data.attributes.Title}</a></p>
@@ -205,7 +205,7 @@ export default async function BlogPostPage({params}: BlogPostArgs) {
             </Card>
 
             <div className="flex flex-row justify-stretch gap-4 sm:mx-4">
-                <Card fabric="paper" className="grow">
+                <Card fabric="paper" className="grow xl:max-w-fit lg:px-14 lg:py-4">
                     <CardContent className="text-jet-black content overflow-hidden [&_a]:text-iron-trim">
                         <BlocksRenderer content={blogPost.attributes.Content} />
                     </CardContent>
