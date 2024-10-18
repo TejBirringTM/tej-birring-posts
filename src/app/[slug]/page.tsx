@@ -25,7 +25,11 @@ export async function generateMetadata(
   ): Promise<Metadata> {
     const siteData = await SiteData.get();
     const blogPost = await getBlogPostFromSlug(params.slug);
-  
+    if (!blogPost) {
+        return {
+            title: `Post Not Found — ${siteData.data.attributes.Title}`
+        };
+    }
     return {
       title: `${blogPost.attributes.Title} — ${siteData.data.attributes.Title}`,
       description: siteData.data.attributes.Description,
@@ -73,19 +77,19 @@ async function getBlogPostFromSlug(slug: string) {
     const blogPostSlug = slug;
 
     const blogPost = (await BlogPosts.get({
-            filters: {
-                Slug: {
-                    $eq: blogPostSlug
-                }
-            },
-            populate: "*"
-        }));
+        filters: {
+            Slug: {
+                $eq: blogPostSlug
+            }
+        },
+        populate: "*"
+    }));    
     
-        if (!blogPost) {
-            return notFound();
-        } else {
-            return blogPost
-        }        
+    if (!blogPost) {
+        return undefined;
+    } else {
+        return blogPost.data[0]
+    }        
 } 
 
 export default async function BlogPostPage({params}: BlogPostArgs) {
@@ -95,7 +99,9 @@ export default async function BlogPostPage({params}: BlogPostArgs) {
 
     const siteData = await SiteData.get();
     const blogPost = await getBlogPostFromSlug(params.slug);
-    
+    if (!blogPost) {
+        return notFound();
+    }
 
     const year = new Date().getFullYear();
     const urlString = (route: string) => new URL(route, siteData.data.attributes.BaseURL).href;
