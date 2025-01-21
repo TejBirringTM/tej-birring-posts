@@ -9,6 +9,7 @@ import CalendarCreatedIcon from "@/app/_ui/_assets/_svgs/calendar-created.svg"
 import CalendarUpdatedIcon from "@/app/_ui/_assets/_svgs/calendar-updated.svg"
 import clsx from "clsx";
 import Link from "next/link";
+import pluralize from "pluralize";
 
 function TheBlogPosts() {
     const posts = useAtomValue(postsAtom);
@@ -20,7 +21,7 @@ function TheBlogPosts() {
         return (
             <div>
                 <p className="text-paper text-xl font-bold mb-2">
-                    {posts.length} posts {pageCount > 1 && <span className="text-xs font-normal">(page {pageNumber} of {pageCount})</span>}
+                    {pluralize("post", posts.length, true)} {pageCount > 1 && <span className="text-xs font-normal">(page {pageNumber} of {pageCount})</span>}
                 </p>
                 <div className="flex flex-col gap-4">
                 { posts.map((post)=>(
