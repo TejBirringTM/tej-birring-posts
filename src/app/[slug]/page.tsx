@@ -205,7 +205,7 @@ export default async function BlogPostPage({params}: BlogPostArgs) {
             </Card>
 
             <div className="flex flex-row justify-stretch gap-4 sm:mx-4">
-                <Card fabric="paper" className="grow xl:max-w-fit lg:px-14 lg:py-4">
+                <Card fabric="paper" className="grow xl:max-w-fit lg:px-14 py-4 lg:py-6">
                     <CardContent className="text-jet-black content overflow-hidden [&_a]:text-iron-trim">
                         <BlocksRenderer content={blogPost.attributes.Content} />
                     </CardContent>

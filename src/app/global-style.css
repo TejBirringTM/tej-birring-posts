@@ -261,6 +261,7 @@ h6 {
 
   code {
     background-color: theme(colors.jet-black);
+    color: theme(colors.paper);
     padding: 0.2em 0.4em;
     border-radius: 3px;
     font-size: 0.9em;
