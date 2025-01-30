@@ -32,7 +32,7 @@ export async function generateMetadata(
     }
     return {
       title: `${blogPost.attributes.Title} — ${siteData.data.attributes.Title}`,
-      description: siteData.data.attributes.Description,
+      description: blogPost.attributes.Excerpt ?? siteData.data.attributes.Description,
       applicationName: siteData.data.attributes.Title,
       publisher: siteData.data.attributes.Title,
       
@@ -82,7 +82,8 @@ async function getBlogPostFromSlug(slug: string) {
                 $eq: blogPostSlug
             }
         },
-        populate: "*"
+        status: "published",
+        populate: "*",
     }));    
     
     if (!blogPost) {
@@ -185,7 +186,7 @@ export default async function BlogPostPage({params}: BlogPostArgs) {
 
             <Card fabric="iron" className="sm:mx-4 mb-4" trim="true">
                 <CardContent className="lg:px-14 xl:px-24 xl:py-8">
-                    <div className="mb-2">
+                    <div className="mb-2 mt-4">
                         <Title className="text-paper text-center sm:text-left">{blogPost.attributes.Title}</Title>
                         <p className="text-paper text-lg text-center sm:text-left">in <a className="font-bold underline cursor-pointer hover:rounded-full hover:px-2 hover:py-05 hover:bg-paper hover:text-iron transition-all" href={`/?search=&categories%5B0%5D=${blogPost.attributes.Category.data.attributes.Slug}`}>{blogPost.attributes.Category.data.attributes.Title}</a></p>
                     </div>
