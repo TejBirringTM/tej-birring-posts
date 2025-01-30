@@ -70,7 +70,7 @@ function TheBlogPosts() {
                         
 
                         { post.attributes.Excerpt && 
-                         <p className="max-w-prose max-h-[0vh] overflow-hidden group-hover:max-h-[100vh] transition-max-height duration-1000 delay-150 order-4"> 
+                         <p className="max-w-prose max-h-[0vh] overflow-hidden group-hover:max-h-[100vh] transition-all duration-1000 order-4 group-hover:mt-2 opacity-0 group-hover:opacity-100"> 
                             {post.attributes.Excerpt}
                          </p>
                         }
