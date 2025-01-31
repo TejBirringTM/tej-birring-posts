@@ -97,7 +97,7 @@ class StrapiEntity<T extends ZodRawShape> {
                 authorization: `Bearer ${config.STRAPI_API_KEY}`
             },
             next: {
-                revalidate: process.env.FETCH_CACHE_TTL ? parseInt(process.env.FETCH_CACHE_TTL) : 3600 // 1 hour is default if FETCH_CACHE_TTL not specified in environment
+                revalidate: process.env.FETCH_CACHE_TTL__SECONDS ? parseInt(process.env.FETCH_CACHE_TTL__SECONDS) : 3600 // 1 hour is default if FETCH_CACHE_TTL__SECONDS not specified in environment
             }
         });
         const responseBody = await response.json();
