@@ -121,6 +121,7 @@ export default async function HomePage() {
       <main className="min-h-screen">
         <JsonLinkingData jsonLd={jsonLd} />
 
+        {/* TODO: Implement fallback */}
         <Suspense>
           <TheSearchBox />
 

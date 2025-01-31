@@ -102,13 +102,13 @@ function TheBlogPosts() {
                 <Spinner fabric="paper" />
                 <span className="text-paper text-xl font-semibold">Loading posts...</span>
             </div>
-            
         )
     }
 }
 
 export default function TheBlogPostsPagination() {
     return (
+        // TODO: Implement suspense boundary
         <div className="m-4">
             <TheBlogPosts />
         </div>
