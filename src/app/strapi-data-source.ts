@@ -161,13 +161,13 @@ class StrapiEntities<T extends ZodRawShape> {
 
 export const Categories = new StrapiEntities("categories", z.object({
     Title: z.string(),
-    Description: z.string().nullable(),
+    Description: z.any(),
     Slug: z.string(),    
 }));
 
 export const Tags = new StrapiEntities("tags", z.object({
     Title: z.string(),
-    Description: z.string().nullable(),
+    Description: z.any(),
     Slug: z.string(),    
 }));
 
